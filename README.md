@@ -1,7 +1,5 @@
 # Traffic Light Optimization
 
-## Important!
-
 This project is based on a previous version of Bilal Himite's [trafficSimulator](https://github.com/BilHim/trafficSimulator) and aims at reducing waiting times at traffic lights.
 
 ## Getting Started
