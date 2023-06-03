@@ -1,17 +1,8 @@
-# Traffic Simulator
+# Traffic Light Optimization
 
 ## Important!
 
-Due to the unexpected large interest in the project, I'm currently working on redesigning the project from scratch to be more efficient and customizable.
-
-If you have any suggestions or ideas, don't hesitate to send me a message. If you are interested in seeing the project evolve further, any support is appreciated.
-
-## About The Project
-
-A traffic simulator implemented in Python using pygame.
-
-To learn more about how the project was created check out this [article](https://towardsdatascience.com/simulating-traffic-flow-in-python-ee1eab4dd20f).
-on Medium.
+This project is based on a previous version of Bilal Himite's [trafficSimulator](https://github.com/BilHim/trafficSimulator) and aims at reducing waiting times at traffic lights.
 
 ## Getting Started
 
