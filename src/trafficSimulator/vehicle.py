@@ -16,7 +16,7 @@ class Vehicle:
         self.l = 4
         self.s0 = 4
         self.T = 1
-        self.v_max = 16.6
+        self.v_max = 13.8 # 50km/h
         self.a_max = 1.44
         self.b_max = 4.61
 
@@ -27,6 +27,10 @@ class Vehicle:
         self.v = self.v_max
         self.a = 0
         self.stopped = False
+        self.has_written = False
+
+        # self.stop_time = 0
+        self.wait_time = 0
 
     def init_properties(self):
         self.sqrt_ab = 2*np.sqrt(self.a_max*self.b_max)
@@ -37,9 +41,13 @@ class Vehicle:
         if self.v + self.a*dt < 0:
             self.x -= 1/2*self.v*self.v/self.a
             self.v = 0
+            if not self.tm_has_started:
+                self.tm_has_started = True
+            self.wait_time += dt
         else:
             self.v += self.a*dt
             self.x += self.v*dt + self.a*dt*dt/2
+            self.tm_has_started = False
         
         # Update acceleration
         alpha = 0
@@ -53,9 +61,11 @@ class Vehicle:
 
         if self.stopped: 
             self.a = -self.b_max*self.v/self.v_max
+            self.wait_time += dt
         
     def stop(self):
         self.stopped = True
+        self.wait_time = 0
 
     def unstop(self):
         self.stopped = False
@@ -65,5 +75,3 @@ class Vehicle:
 
     def unslow(self):
         self.v_max = self._v_max
-        
-

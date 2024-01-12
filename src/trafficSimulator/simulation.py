@@ -7,6 +7,9 @@ class Simulation:
     def __init__(self, config={}):
         # Set default configuration
         self.set_default_config()
+        self.signal_indexes =  [0, 2, 8, 10, 1, 3, 9, 11]
+        # Please note that this list depends on where your traffic signals are located and needs
+        # to be modified depending on the studied situation
 
         # Update configuration
         for attr, val in config.items():
@@ -58,8 +61,14 @@ class Simulation:
             if len(road.vehicles) == 0: continue
             # If not
             vehicle = road.vehicles[0]
-            # If first vehicle is out of road bounds
             if vehicle.x >= road.length:
+                if vehicle.current_road_index in self.signal_indexes:
+                    if not vehicle.has_written:
+                        print('time',vehicle.wait_time)
+                        vehicle.has_written = True
+                        with open('temps.txt', 'a', newline='') as f:
+                            f.write(f'{signal.current_cycle_index} {vehicle.wait_time}\n')
+
                 # If vehicle has a next road
                 if vehicle.current_road_index + 1 < len(vehicle.path):
                     # Update current road to next road

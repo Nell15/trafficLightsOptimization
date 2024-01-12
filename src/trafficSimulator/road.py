@@ -1,5 +1,6 @@
 from scipy.spatial import distance
 from collections import deque
+# import time
 
 class Road:
     def __init__(self, start, end):
@@ -7,8 +8,8 @@ class Road:
         self.end = end
 
         self.vehicles = deque()
-
         self.init_properties()
+        # self.stop_time = 0
 
     def init_properties(self):
         self.length = distance.euclidean(self.start, self.end)
@@ -31,7 +32,6 @@ class Road:
 
     def update(self, dt):
         n = len(self.vehicles)
-
         if n > 0:
             # Update first vehicle
             self.vehicles[0].update(None, dt)
@@ -47,6 +47,8 @@ class Road:
                 self.vehicles[0].unstop()
                 for vehicle in self.vehicles:
                     vehicle.unslow()
+                    # if vehicle.has_slowed and not vehicle.slowed:
+                    #     vehicle.has_slowed = False
             else:
                 # If traffic signal is red
                 if self.vehicles[0].x >= self.length - self.traffic_signal.slow_distance:
@@ -56,3 +58,4 @@ class Road:
                    self.vehicles[0].x <= self.length - self.traffic_signal.stop_distance / 2:
                     # Stop vehicles in the stop zone
                     self.vehicles[0].stop()
+                    # self.stop_time = time.time()
