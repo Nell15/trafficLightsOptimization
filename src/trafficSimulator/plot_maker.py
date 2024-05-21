@@ -18,9 +18,6 @@ def formater():
                     phase -= 1
                 phases[phase].append([car_index, float(wait_tm)])
                 car_index += 1
-    # for tab in phases.values():
-    #     for e in tab:
-    #         print(e)
     return phases
 
 data = formater()
@@ -40,12 +37,6 @@ def avg(tab):
 
 phases_avg = {ph:avg(data[ph]) for ph in data.keys()}
 
-## Test
-# for e in phases_avg.values():
-#     print("e")
-#     print(e)
-# print(phases_avg)
-
 def formater_2(d):
     indexes = []
     for ph in phases_avg.values():
@@ -60,7 +51,6 @@ def formater_2(d):
 
 
 indexes, times = formater_2(phases_avg)
-# print(times)
 x = np.arange(len(indexes))  # the label locations
 width = 0.25  # the width of the bars
 multiplier = 0
@@ -79,7 +69,6 @@ ax.set_xlabel("Position dans la file")
 ax.set_title("Temps d'attente moyen selon la position dans la file")
 ax.set_xticks(x + width, indexes)
 ax.legend(loc='upper left')
-# m = 10
 m = round(max([max(lst) for lst in times.values()]) / 10 + 1) * 10
 
 ax.set_ylim(0, m)
